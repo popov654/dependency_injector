@@ -5,24 +5,20 @@ import service.ServiceA;
 import service.printer.ConsolePrinter;
 
 public class AppContext {
-    @InjectObject("service.printer.impl.DashedBlockConsolePrinter")
-    private ConsolePrinter printer;
 
-    private static AppContext instance;
-
-    private AppContext() {}
-
-    public static AppContext getInstance() {
-        if (instance == null) {
-            instance = new AppContext();
-            Injector.injectServices(instance);
-        }
-        return instance;
+    public AppContext(Runnable runnable) {
+        init(runnable);
     }
 
-    public void start() {
-        printer.print("Test message");
-        ServiceA service = Injector.createService(ServiceA.class);
-        System.out.println(service.getClass());
+    public AppContext(Runnable runnable, LifecycleEventListener listener) {
+        listener.onStart();
+        init(runnable);
+        listener.onFinish();
     }
+
+    private void init(Runnable runnable) {
+        Injector.injectServices(runnable);
+        runnable.run();
+    }
+
 }

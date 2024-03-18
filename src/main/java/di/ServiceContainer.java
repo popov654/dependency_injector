@@ -7,7 +7,7 @@ public class ServiceContainer {
 
     private static ServiceContainer instance;
 
-    private final Map<Class<?>, Object> services = new HashMap<Class<?>, Object>();
+    private final Map<Class<?>, Object> services = new HashMap<>();
 
     private ServiceContainer() {}
 

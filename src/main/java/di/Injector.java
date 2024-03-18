@@ -16,10 +16,10 @@ public class Injector {
     private static final Class<? extends Annotation> ANNOTATION_CLASS = (Class<? extends Annotation>) InjectObject.class;
 
     @SneakyThrows
-    public static void injectServices(AppContext context) {
-        for (Field field: context.getClass().getDeclaredFields()) {
+    public static void injectServices(Object object) {
+        for (Field field: object.getClass().getDeclaredFields()) {
             Class<?> t = field.getType();
-            Injector.injectObject(context, field, field.getType());
+            Injector.injectObject(object, field, field.getType());
         }
     }
 
