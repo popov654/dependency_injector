@@ -1,6 +1,7 @@
 package di;
 
 import annotation.InjectObject;
+import service.ServiceA;
 import service.printer.ConsolePrinter;
 
 public class AppContext {
@@ -21,5 +22,7 @@ public class AppContext {
 
     public void start() {
         printer.print("Test message");
+        ServiceA service = Injector.createService(ServiceA.class);
+        System.out.println(service.getClass());
     }
 }
