@@ -45,11 +45,11 @@ public class Injector {
 
         if (impl == null) return;
 
-        if (ServiceContainer.getInstance().get(impl) != null) {
-            t = ServiceContainer.getInstance().get(impl);
+        if (ComponentStore.getInstance().get(impl) != null) {
+            t = ComponentStore.getInstance().get(impl);
         } else {
             t = impl.getDeclaredConstructor().newInstance();
-            ServiceContainer.getInstance().put(impl, t);
+            ComponentStore.getInstance().put(impl, t);
         }
 
         field.setAccessible(true);
@@ -73,8 +73,8 @@ public class Injector {
         }
 
         T t;
-        if (ServiceContainer.getInstance().get(impl) != null) {
-            t = (T) ServiceContainer.getInstance().get(impl);
+        if (ComponentStore.getInstance().get(impl) != null) {
+            t = (T) ComponentStore.getInstance().get(impl);
         } else {
             Constructor<T>[] constructors = (Constructor<T>[]) impl.getConstructors();
             if (constructors.length == 0) {
@@ -98,7 +98,7 @@ public class Injector {
             stack.remove(impl);
 
             t = constructor.newInstance(params);
-            ServiceContainer.getInstance().put(impl, t);
+            ComponentStore.getInstance().put(impl, t);
         }
 
         return t;

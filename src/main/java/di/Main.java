@@ -7,7 +7,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        new AppContext(new Runnable() {
+        new AppRunner(new Runnable() {
 
             @InjectObject("service.printer.impl.DashedBlockConsolePrinter")
             private ConsolePrinter printer;
